@@ -1,10 +1,10 @@
-# Sets the the default model to use for llm() when no provider parameter is set.
+# Sets the default model to use for llm() when no provider parameter is set.
 model:
   provider: openai
   parameters:
     api_key: null
 
-# list of supported providers.
+# List of supported providers.
 providers:
   anthropic:
     name: Anthropic
@@ -147,3 +147,21 @@ providers:
             model: uukuguy/speechless-llama2-hermes-orca-platypus-13b
             device_map: auto
             trust_remote_code: true
+  deepinfra:
+    name: DeepInfra
+    description: DeepInfra's hosted LLM models.
+    models:
+      - name: llama-2-7b-chat
+        max_tokens: 4096
+        model:
+          provider: deepinfra
+          parameters:
+            endpoint_url: https://api.deepinfra.com/v1/inference/meta-llama/Llama-2-7b-chat-hf
+            api_key: <your-api-key>
+      - name: llama-2-13b-chat
+        max_tokens: 8192
+        model:
+          provider: deepinfra
+          parameters:
+            endpoint_url: https://api.deepinfra.com/v1/inference/meta-llama/Llama-2-13b-chat-hf
+            api_key: <your-api-key>

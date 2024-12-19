@@ -3,6 +3,7 @@ from .openai_textgen import OpenAITextGenerator
 from .palm_textgen import PalmTextGenerator
 from .cohere_textgen import CohereTextGenerator
 from .anthropic_textgen import AnthropicTextGenerator
+from .deepinfra_textgen import DeepInfraTextGenerator  # Import DeepInfraTextGenerator
 import logging
 
 logger = logging.getLogger("llmx")
@@ -19,9 +20,11 @@ def sanitize_provider(provider: str):
         return "hf"
     elif provider.lower() == "anthropic" or provider.lower() == "claude":
         return "anthropic"
+    elif provider.lower() == "deepinfra":
+        return "deepinfra"
     else:
         raise ValueError(
-            f"Invalid provider '{provider}'. Supported providers are 'openai', 'hf', 'palm', 'cohere', and 'anthropic'."
+            f"Invalid provider '{provider}'. Supported providers are 'openai', 'hf', 'palm', 'cohere', 'anthropic', and 'deepinfra'."
         )
 
 
@@ -77,8 +80,9 @@ def llm(provider: str = None, **kwargs):
         from .hf_textgen import HFTextGenerator
 
         return HFTextGenerator(**kwargs)
-
+    elif provider.lower() == "deepinfra":
+        return DeepInfraTextGenerator(**kwargs)  # Initialize DeepInfraTextGenerator
     else:
         raise ValueError(
-            f"Invalid provider '{provider}'. Supported providers are 'openai', 'hf', 'palm', 'cohere', and 'anthropic'."
+            f"Invalid provider '{provider}'. Supported providers are 'openai', 'hf', 'palm', 'cohere', 'anthropic', and 'deepinfra'."
         )
